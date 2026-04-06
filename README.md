@@ -129,3 +129,20 @@ Aspiring Software Engineer
 ## ⭐ Support
 
 If you find this project helpful, please consider giving it a ⭐ on GitHub!
+
+---
+
+## Vercel Deployment
+
+This repository now supports deploying both frontend and API on Vercel.
+
+1. Import this GitHub repository in Vercel.
+2. Keep the project root as the repository root (do not change Root Directory).
+3. Add environment variable in Vercel:
+   - `GOOGLE_GEMINI_KEY=your_new_valid_key`
+4. Redeploy.
+
+Notes:
+- Frontend is built from `Frontend/`.
+- Serverless API endpoint is `POST /api/get-review`.
+- Local development still uses `POST /ai/get-review` through the Vite proxy.
