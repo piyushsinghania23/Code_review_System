@@ -20,8 +20,9 @@ function App() {
   }, [])
 
   const apiBaseUrl = (import.meta.env.VITE_API_URL || '').trim();
-  const defaultEndpoint = import.meta.env.DEV ? '/ai/get-review' : '/api/get-review';
-  const reviewEndpoint = apiBaseUrl ? `${apiBaseUrl}/ai/get-review` : defaultEndpoint;
+  const reviewEndpoint = import.meta.env.DEV
+    ? '/ai/get-review'
+    : `${apiBaseUrl}/ai/get-review`;
 
   function getErrorMessage(error, backendHint) {
     if (error?.message === 'Network Error') {
@@ -38,6 +39,11 @@ function App() {
   }
 
   async function reviewCode() {
+    if (!import.meta.env.DEV && !apiBaseUrl) {
+      setReview('Error: Missing VITE_API_URL in frontend environment. Set it in Vercel Project Settings.');
+      return;
+    }
+
     setLoading(true);
     setReview('');
 
