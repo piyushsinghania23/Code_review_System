@@ -20,7 +20,8 @@ function App() {
   }, [])
 
   const apiBaseUrl = (import.meta.env.VITE_API_URL || '').trim();
-  const reviewEndpoint = apiBaseUrl ? `${apiBaseUrl}/ai/get-review` : '/ai/get-review';
+  const defaultEndpoint = import.meta.env.DEV ? '/ai/get-review' : '/api/get-review';
+  const reviewEndpoint = apiBaseUrl ? `${apiBaseUrl}/ai/get-review` : defaultEndpoint;
 
   function getErrorMessage(error, backendHint) {
     if (error?.message === 'Network Error') {
