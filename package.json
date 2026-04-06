@@ -1,0 +1,8 @@
+{
+  "name": "code-review-system",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "node dev.js"
+  }
+}
