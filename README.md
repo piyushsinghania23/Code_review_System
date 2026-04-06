@@ -132,17 +132,21 @@ If you find this project helpful, please consider giving it a ⭐ on GitHub!
 
 ---
 
-## Vercel Deployment
+## Vercel Deployment (Frontend Only)
 
-This repository now supports deploying both frontend and API on Vercel.
+Deploy the React frontend on Vercel and host backend separately (Render/Railway).
 
 1. Import this GitHub repository in Vercel.
-2. Keep the project root as the repository root (do not change Root Directory).
-3. Add environment variable in Vercel:
-   - `GOOGLE_GEMINI_KEY=your_new_valid_key`
+2. In Project Settings set:
+   - Root Directory: `Frontend`
+   - Framework Preset: `Vite`
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+3. In Vercel Environment Variables add:
+   - `VITE_API_URL=https://your-backend-domain`
 4. Redeploy.
 
 Notes:
-- Frontend is built from `Frontend/`.
-- Serverless API endpoint is `POST /api/get-review`.
-- Local development still uses `POST /ai/get-review` through the Vite proxy.
+- Local development uses `POST /ai/get-review` through Vite proxy.
+- Production frontend calls `${VITE_API_URL}/ai/get-review`.
+- Backend host must have a valid `GOOGLE_GEMINI_KEY`.
