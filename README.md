@@ -132,21 +132,28 @@ If you find this project helpful, please consider giving it a ⭐ on GitHub!
 
 ---
 
-## Vercel Deployment (Frontend Only)
+## Vercel Deployment (Frontend + Backend on Vercel)
 
-Deploy the React frontend on Vercel and host backend separately (Render/Railway).
+This repository is configured to deploy both frontend and backend in one Vercel project:
+- Frontend static app is built from `Frontend/`
+- Backend API is served by `api/get-review.js`
 
-1. Import this GitHub repository in Vercel.
-2. In Project Settings set:
-   - Root Directory: `Frontend`
-   - Framework Preset: `Vite`
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-3. In Vercel Environment Variables add:
-   - `VITE_API_URL=https://your-backend-domain`
-4. Redeploy.
+### Steps
 
-Notes:
-- Local development uses `POST /ai/get-review` through Vite proxy.
-- Production frontend calls `${VITE_API_URL}/ai/get-review`.
-- Backend host must have a valid `GOOGLE_GEMINI_KEY`.
+1. Push your code to GitHub.
+2. Import the repository into Vercel.
+3. Keep the project root as repository root (do not set root to `Frontend`).
+4. In Vercel Project Settings -> Environment Variables add:
+   - `GOOGLE_GEMINI_KEY=your_real_key`
+   - optional: `GEMINI_MODEL=gemini-2.5-flash`
+5. Deploy.
+
+### API and Frontend URLs
+
+- Frontend live URL: `https://your-project.vercel.app`
+- API endpoint: `https://your-project.vercel.app/api/get-review`
+
+### Local vs Production behavior
+
+- Local dev (`npm run dev`): frontend calls `/ai/get-review` through Vite proxy to `http://localhost:3000`.
+- Production (Vercel): frontend calls same-domain `/api/get-review`.
