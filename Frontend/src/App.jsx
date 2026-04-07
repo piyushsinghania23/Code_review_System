@@ -19,14 +19,15 @@ function App() {
     prism.highlightAll()
   }, [])
 
-  const apiBaseUrl = (import.meta.env.VITE_API_URL || '').trim();
   const reviewEndpoint = import.meta.env.DEV
     ? '/ai/get-review'
-    : `${apiBaseUrl}/ai/get-review`;
+    : '/api/get-review';
 
-  function getErrorMessage(error, backendHint) {
+  function getErrorMessage(error) {
     if (error?.message === 'Network Error') {
-      return `Cannot connect to backend (${backendHint}). Start BackEnd server with: npm.cmd run dev`;
+      return import.meta.env.DEV
+        ? 'Cannot connect to backend (http://localhost:3000). Start BackEnd server with: npm.cmd run dev'
+        : 'Cannot connect to backend API. Ensure Vercel deployment has GOOGLE_GEMINI_KEY set.';
     }
 
     const data = error?.response?.data;
@@ -39,11 +40,6 @@ function App() {
   }
 
   async function reviewCode() {
-    if (!import.meta.env.DEV && !apiBaseUrl) {
-      setReview('Error: Missing VITE_API_URL in frontend environment. Set it in Vercel Project Settings.');
-      return;
-    }
-
     setLoading(true);
     setReview('');
 
@@ -54,8 +50,7 @@ function App() {
         : JSON.stringify(response.data, null, 2);
       setReview(result);
     } catch (error) {
-      const backendHint = apiBaseUrl || 'http://localhost:3000';
-      const message = getErrorMessage(error, backendHint);
+      const message = getErrorMessage(error);
       setReview(`Error: ${message}`);
     } finally {
       setLoading(false);
