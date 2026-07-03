@@ -1,0 +1,21 @@
+# Ignore local dependencies
+node_modules/
+**/node_modules/
+
+# Ignore logs
+*.log
+**/*.log
+
+# Ignore environment files
+.env
+**/.env
+.env.*.local
+
+# Ignore build output
+dist/
+dist-ssr/
+
+# Ignore editor folders
+.vscode/
+.idea/
+.DS_Store

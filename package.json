@@ -1,0 +1,12 @@
+{
+  "name": "code-review-system",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1"
+  },
+  "scripts": {
+    "dev": "node dev.js",
+    "build": "npm --prefix Frontend install && npm --prefix Frontend run build"
+  }
+}
